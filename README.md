@@ -5,7 +5,7 @@
            cback [-gh] [ -v | -w ] FILE
            cback --version
 
-Process router list and parameters from FILE (yaml format) and backup
+Read a list of routers and associated  credentials from FILE (yaml format) and backup
 configuration files with optional git version control.
 
 ### Arguments:
