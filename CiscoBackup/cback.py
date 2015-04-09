@@ -35,17 +35,17 @@ Options:
 
 FILE template:
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
