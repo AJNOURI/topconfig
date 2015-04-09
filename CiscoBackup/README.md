@@ -23,17 +23,17 @@ configuration files with optional git version control.
 #!yaml
 
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
 -
- hostname: <hostname>
+ HOSTNAME: <hostname>
  IP : <ip>
  LOGIN: <login>
  SSH_PASS: <pass>
