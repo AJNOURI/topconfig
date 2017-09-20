@@ -1,0 +1,13 @@
+#!yaml
+
+-
+ HOSTNAME: "IOSv1"
+ IP : 192.168.111.1
+ LOGIN: admin
+ SSH_PASS: cisco
+-
+ HOSTNAME: "IOU1"
+ IP : 192.168.111.2
+ LOGIN: admin
+ SSH_PASS: cisco
+
