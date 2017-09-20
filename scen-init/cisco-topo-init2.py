@@ -96,8 +96,9 @@ def main(docopt_args):
             logging.info('==> Backup of Router' + hostname + ' : IP ' + ip + ' done.')
             return filename, cmd
         except socket.error, v:
+            print v[0]
             errorcode = v[0]
-            print(os.strerror(errorcode))
+            #print os.strerror(errorcode)
 
 
     if docopt_args['--version']:
@@ -111,12 +112,15 @@ def main(docopt_args):
         # Reading the router list and connection parameters
         stream = open(docopt_args['FILE'], 'r')
         rdata = yaml.load(stream)
+        print(rdata)
 
-
-        CMD = 'sh run'
         task_list = []
 
         for router in rdata:
+            # CMD = 'sh run'
+            #CMD = 'copy running-config tftp://192.168.111.66/' + router['HOSTNAME'] + '-conf'
+            CMD = 'copy tftp://192.168.111.66/' + router['HOSTNAME'] + '-conf startup-config'
+
             task = multiprocessing.Process(target=paramiko_mod, args=(router['IP'], CMD, router['LOGIN'], router['SSH_PASS'], router['HOSTNAME']))
             task_list.append(task)
             task.start()
@@ -124,8 +128,17 @@ def main(docopt_args):
         for task in task_list:
             task.join()
 
+        #      paramiko_mod(router['IP'], CMD, router['LOGIN'], router['SSH_PASS'], router['HOSTNAME'])
+
+
 if __name__ == '__main__':
     # parse arguments based on docstring
     args = docopt(__doc__)
     # Run the program with the validated args
     main(args)
+
+# TODO:
+# Create configuration directory (user option)
+    # 1- manual
+    # 2- ssh + access to tftp = remote ssh
+    # 3- git on tftp server
