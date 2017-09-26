@@ -17,15 +17,16 @@
 # MA 02110-1301, USA.
 
 """Usage:
-  cconf [-hbr] [ -v | -w ] FILE TFTP
+  cconf [-hbr] [ -v | -w ] DEVICE-LIST TFTP SCENARIO
   cconf --version
 
-           Process router list and parameters from FILE, backup
+           Process router list and parameters from DEVICE-LIST, backup
            configuration files with optional git version control.
 
 Arguments:
-  FILE        mendatory YAML input file for router list
+  DEVICE-LIST        mendatory YAML input file for router list
   TFTP        TFTP server IP address
+  SCENARIO        TFTP Directory from which read config or to which backup the config
 
 Options:
   -h --help   show this
@@ -35,7 +36,7 @@ Options:
   -w          very verbose mode
   --version   version inf.
 
-FILE template:
+DEVICE-LIST template:
 -
  HOSTNAME: <hostname>
  IP : <ip>
@@ -92,7 +93,8 @@ def main(docopt_args):
     # Main program
 
     TFTP_IP = docopt_args['TFTP']
-    DEV_LIST = docopt_args['FILE']
+    DEV_LIST = docopt_args['DEVICE-LIST']
+    SCEN_DIR = docopt_args['SCENARIO']
 
     if docopt_args['--version']:
         print ' cconf.py : version ' + __version__ + '   by AJ NOURI, ajn.bin@gmail.com'
@@ -107,11 +109,11 @@ def main(docopt_args):
         print ' Provide either -b (backup) or -r (reset), not both.'
         exit()
     elif docopt_args['-r']:
-        PRECMD = 'copy tftp://' + TFTP_IP + '/'
+        PRECMD = 'copy tftp://' + TFTP_IP + '/' + SCEN_DIR + '/'
         POSTCMD = '.cfg startup-config'
         OPTEXT = 'Reset startup config '
     elif docopt_args['-b']:
-        PRECMD = 'copy running-config tftp://' + TFTP_IP + '/'
+        PRECMD = 'copy running-config tftp://' + TFTP_IP + '/' + SCEN_DIR + '/'
         POSTCMD = '.cfg'
         OPTEXT = 'Backup running config '
     else:
@@ -131,7 +133,7 @@ def main(docopt_args):
 
     for router in rdata:
         CMD = PRECMD + router['HOSTNAME'] + POSTCMD
-        #print CMD
+        print CMD
         task = multiprocessing.Process(target=paramiko_mod, args=(router['IP'], CMD, router['LOGIN'], router['SSH_PASS'], router['HOSTNAME'], OPTEXT))
         task_list.append(task)
         task.start()
