@@ -77,8 +77,13 @@ def main(docopt_args):
             stdin, stdout, stderr = sshobj.exec_command(cmd)
             out = ''.join(stdout)
 
+            if 'Error' in out:
+                print '==> Device ' + hostname + ' (' + ip + '):'
+                print out
+
             filename = hostname + ".log"
             now = str(datetime.now())
+
 
             f = open(filename, 'w')
             for line in out:
@@ -151,5 +156,4 @@ if __name__ == '__main__':
     main(args)
 
 # TODO:
-# Create configuration directory (user option)
-    # backup or reset to and from scenario directory
+
