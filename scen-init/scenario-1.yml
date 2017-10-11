@@ -1,13 +1,37 @@
 #!yaml
 
 -
- HOSTNAME: "IOSv1"
- IP : 192.168.111.1
+ HOSTNAME: "R1"
+ IP : 192.168.111.201
  LOGIN: admin
  SSH_PASS: cisco
 -
- HOSTNAME: "IOU1"
- IP : 192.168.111.2
+ HOSTNAME: "R2"
+ IP : 192.168.111.202
  LOGIN: admin
  SSH_PASS: cisco
-
+-
+ HOSTNAME: "R3"     
+ IP : 192.168.111.203
+ LOGIN: admin
+ SSH_PASS: cisco
+-
+ HOSTNAME: "R4"    
+ IP : 192.168.111.204
+ LOGIN: admin
+ SSH_PASS: cisco
+-
+ HOSTNAME: "R11"     
+ IP : 192.168.111.211
+ LOGIN: admin
+ SSH_PASS: cisco
+-
+ HOSTNAME: "R22"    
+ IP : 192.168.111.222
+ LOGIN: admin
+ SSH_PASS: cisco
+-
+ HOSTNAME: "R33"     
+ IP : 192.168.111.233
+ LOGIN: admin
+ SSH_PASS: cisco

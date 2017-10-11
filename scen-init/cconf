@@ -55,16 +55,13 @@ DEVICE-LIST template:
 """
 
 import paramiko
-import socket
-import os
-import sh
 import sys
-from datetime import datetime
 import logging
 import yaml
 import multiprocessing
 from docopt import docopt
 from paramiko.ssh_exception import AuthenticationException
+
 
 def main(docopt_args):
 
@@ -82,9 +79,6 @@ def main(docopt_args):
                 print out
 
             filename = hostname + ".log"
-            now = str(datetime.now())
-
-
             f = open(filename, 'w')
             for line in out:
                 f.write(line)
@@ -93,7 +87,9 @@ def main(docopt_args):
             logging.info('==> ' + optext + hostname + ' : IP ' + ip + ' done.')
             return filename, cmd
         except (AuthenticationException):
-            print 'Authentication failure to ' + IP
+            print 'SSH Authentication failure to ' + ip
+            sys.exit(1)
+
 
     # Main program
 
@@ -110,6 +106,7 @@ def main(docopt_args):
        logging.basicConfig(level=logging.INFO)
 
 
+    # Prepare the command to run by SSH
     if docopt_args['-r'] and docopt_args['-b']:
         print ' Provide either -b (backup) or -r (reset), not both.'
         exit()
@@ -125,7 +122,7 @@ def main(docopt_args):
         print ' One option is required: -b (backup) or -r (reset)'
         exit()
 
-
+    # Read device credentials
     try:
         stream = open(DEV_LIST, 'r')
         rdata = yaml.load(stream)
@@ -134,19 +131,19 @@ def main(docopt_args):
         print "Could not read file:", DEV_LIST
         sys.exit()
 
+
+     # Back & Reset Operations
     task_list = []
 
     for router in rdata:
         CMD = PRECMD + router['HOSTNAME'] + POSTCMD
-        print CMD
+        #print CMD
         task = multiprocessing.Process(target=paramiko_mod, args=(router['IP'], CMD, router['LOGIN'], router['SSH_PASS'], router['HOSTNAME'], OPTEXT))
         task_list.append(task)
         task.start()
 
     for task in task_list:
         task.join()
-
-    #      paramiko_mod(router['IP'], CMD, router['LOGIN'], router['SSH_PASS'], router['HOSTNAME'])
 
 
 if __name__ == '__main__':
