@@ -17,8 +17,8 @@
 # MA 02110-1301, USA.
 
 """Usage:
-  cconf [-hbr] [ -v | -w ] DEVICE-LIST TFTP SCENARIO
-  cconf --version
+  topconfig [-hbr] [ -v | -w ] DEVICE-LIST TFTP SCENARIO
+  topconfig --version
 
            Process router list and parameters from DEVICE-LIST, backup
            configuration files with optional git version control.
@@ -98,7 +98,7 @@ def main(docopt_args):
     SCEN_DIR = docopt_args['SCENARIO']
 
     if docopt_args['--version']:
-        print ' cconf.py : version ' + __version__ + '   by AJ NOURI, ajn.bin@gmail.com'
+        print ' topconfig.py : version ' + __version__ + '   by AJ NOURI, ajn.bin@gmail.com'
 
     if docopt_args['-w']:
         logging.basicConfig(level=logging.DEBUG)
@@ -151,6 +151,3 @@ if __name__ == '__main__':
     args = docopt(__doc__)
     # Run the program with the validated args
     main(args)
-
-# TODO:
-
