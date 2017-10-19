@@ -151,6 +151,3 @@ if __name__ == '__main__':
     args = docopt(__doc__)
     # Run the program with the validated args
     main(args)
-
-# TODO:
-
