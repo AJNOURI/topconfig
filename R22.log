@@ -1,6 +1,0 @@
-
-Accessing tftp://192.168.111.100/resettopo/R22.cfg...
-Loading resettopo/R22.cfg from 192.168.111.100 (via GigabitEthernet0/3): !
-[OK - 2060 bytes]
-[OK]
-2060 bytes copied in 0.834 secs (2470 bytes/sec)

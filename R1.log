@@ -1,6 +1,0 @@
-
-Accessing tftp://192.168.111.100/mplstopo/R1.cfg...
-Loading mplstopo/R1.cfg from 192.168.111.100 (via GigabitEthernet0/3): !
-[OK - 6701 bytes]
-[OK]
-6701 bytes copied in 1.186 secs (5650 bytes/sec)
